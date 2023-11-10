@@ -1,0 +1,7 @@
+<resources>
+    <string name="APP_NAME">SecondLabApplication</string>
+    <string name="edit_text_hint">Input an item</string>
+    <string name="delete_button_text">Delete</string>
+    <string name="edit_button_text">Edit</string>
+    <string name="save_button_text">Save</string>
+</resources>
