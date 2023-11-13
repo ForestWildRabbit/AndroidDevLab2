@@ -4,47 +4,39 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.widget.EditText;
-import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
-    TextView textView;
-    EditText editText;
-    private final AlphaAnimation onClickAnimation = new AlphaAnimation(1F, 0.6F);
-    public void saveItem (View view){
-        view.startAnimation(onClickAnimation);
-        textView = findViewById(R.id.list_item_id);
-        editText = findViewById(R.id.edit_item_id);
-        String item = editText.getText().toString();
-        editText.setVisibility(View.GONE);
-        textView.setVisibility(View.VISIBLE);
-        textView.setText(item);
 
-        Log.d("Click", "Called saveItem()");
-    }
+    ArrayList<String> shopping_list;
 
-    public void editItem (View view){
-        view.startAnimation(onClickAnimation);
-        textView = findViewById(R.id.list_item_id);
-        editText = findViewById(R.id.edit_item_id);
-        String item = textView.getText().toString();
-        textView.setVisibility(View.GONE);
-        editText.setVisibility(View.VISIBLE);
-        editText.setText(item);
+    ListItemAdapter adapter;
+    RecyclerView myRecyclerView;
 
-        Log.d("Click", "Called editItem()");
-    }
-
-    public void deleteItem (View view){
-        view.startAnimation(onClickAnimation);
-        Log.d("Click", "Called deleteItem()");
+    public void addItem (View view){
+        this.shopping_list.add("New item");
+        int last_position = shopping_list.size() - 1;
+        adapter.notifyItemInserted(last_position);
+        myRecyclerView.scrollToPosition(last_position);
+        Log.d("Click", "Called addItem()");
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        myRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        shopping_list = new ArrayList<String>();
+
+        adapter = new ListItemAdapter(shopping_list);
+        myRecyclerView.setAdapter(adapter);
+
     }
 
 }
+
+
